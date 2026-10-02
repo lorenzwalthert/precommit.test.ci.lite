@@ -1,7 +1,7 @@
 1 + 1 + 2
 
 f <- function(x, y) {
-  x + y#more
+  x + y # more
 }
 
 g <- function(a, b, c) {

@@ -15,17 +15,13 @@ jobs:
       with:
         python-version: 3.x
     - run: pip install pre-commit && pre-commit autoupdate
-    - name: Check workflow PR permissions
-      env:
-        GH_TOKEN: ${{ github.token }}
-      run: |
-        can_create=$(gh api repos/${{ github.repository }}/actions/permissions/workflow --jq '.can_approve_pull_request_reviews')
-        if [ "$can_create" = "false" ]; then
-          echo "::error::GitHub Actions is not allowed to create pull requests in this repository. Go to Settings → Actions → General → Workflow permissions and enable 'Allow GitHub Actions to create and approve pull requests'."
-          exit 1
-        fi
     - uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # v7.0.11
+      id: create-pr
       with:
         commit-message: 'pre-commit autoupdate'
         title: 'pre-commit autoupdate'
         branch: pre-commit-autoupdate
+    - name: Check PR creation result
+      if: failure()
+      run: |
+        echo "::error::Failed to create pull request. If you see a permissions error, go to Settings → Actions → General → Workflow permissions and enable 'Allow GitHub Actions to create and approve pull requests'."

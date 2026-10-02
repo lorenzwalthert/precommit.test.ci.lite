@@ -7,7 +7,7 @@ jobs:
   pre-commit:
     runs-on: ubuntu-latest
     env:
-      RENV_PATHS_CACHE: ~/.cache/pre-commit/renv
+      RENV_CONFIG_CACHE_ENABLED: 'FALSE'
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-python@v5

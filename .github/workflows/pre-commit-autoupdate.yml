@@ -6,6 +6,8 @@ on:
 jobs:
   autoupdate:
     runs-on: ubuntu-latest
+    # Requires: Settings → Actions → General → Workflow permissions →
+    # "Allow GitHub Actions to create and approve pull requests"
     permissions:
       contents: write
       pull-requests: write
